@@ -3,8 +3,9 @@ image: docker:git
 services:
   - docker:dind
 
-build:
-  stage: build_services
+
+build_services:
+  stage: build
   before_script:
     - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
   script:
@@ -17,7 +18,10 @@ build:
     - docker push gcr.io/pelagic-bastion-359618/payment.api:latest
     - docker push gcr.io/pelagic-bastion-359618/webhooks.api:latest
   
-  stage: build_web
+build_web:
+  stage: build
+  before_script:
+    - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
   script:
     - docker-compose build webhooks-client webmvc webspa webstatus
     - docker push gcr.io/pelagic-bastion-359618/webhooks.client:latest
@@ -25,7 +29,10 @@ build:
     - docker push gcr.io/pelagic-bastion-359618/webspa:latest
     - docker push gcr.io/pelagic-bastion-359618/webstatus:latest
   
-  stage: build_dockerhub
+build_dockerhub:
+  stage: build
+  before_script:
+    - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
   script:
     - docker-compose build seq nosqldata basketdata rabbitmq mobileshoppingapigw webshoppingapigw
     - docker push gcr.io/pelagic-bastion-359618/seq:latest
@@ -35,7 +42,10 @@ build:
     - docker push gcr.io/pelagic-bastion-359618/mobileshoppingapigw:latest
     - docker push gcr.io/pelagic-bastion-359618/webshoppingapigw:latest
 
-  stage: build_apigw
+build_apigw:
+  stage: build
+  before_script:
+    - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
   script:
     - docker-compose build ordering-backgroundtasks mobileshoppingagg webshoppingagg ordering-signalrhub
     - docker push gcr.io/pelagic-bastion-359618/ordering.backgroundtasks:latest
