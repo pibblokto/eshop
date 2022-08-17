@@ -15,13 +15,13 @@ services:
     image: rabbitmq:3-management-alpine
 
   identity-api:
-    image: ${REGISTRY:-eshop}/identity.api:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/identity.api:latest
     build:
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
 
   basket-api:
-    image: ${REGISTRY:-eshop}/basket.api:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/basket.api:latest
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
@@ -31,7 +31,7 @@ services:
       - rabbitmq
 
   catalog-api:
-    image: ${REGISTRY:-eshop}/catalog.api:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/catalog.api:latest
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
@@ -39,7 +39,7 @@ services:
       - rabbitmq
 
   ordering-api:
-    image: ${REGISTRY:-eshop}/ordering.api:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/ordering.api:latest
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.API/Dockerfile
@@ -47,7 +47,7 @@ services:
       - rabbitmq
 
   ordering-backgroundtasks:
-    image: ${REGISTRY:-eshop}/ordering.backgroundtasks:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/ordering.backgroundtasks:latest
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.BackgroundTasks/Dockerfile
@@ -55,7 +55,7 @@ services:
       - rabbitmq
 
   payment-api:
-    image: ${REGISTRY:-eshop}/payment.api:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/payment.api:latest
     build:
       context: .
       dockerfile: Services/Payment/Payment.API/Dockerfile
@@ -63,7 +63,7 @@ services:
       - rabbitmq
 
   webhooks-api:
-    image: ${REGISTRY:-eshop}/webhooks.api:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/webhooks.api:latest
     build:
       context: .
       dockerfile: Services/Webhooks/Webhooks.API/Dockerfile
@@ -72,7 +72,7 @@ services:
     image: envoyproxy/envoy:v1.11.1
 
   mobileshoppingagg:
-    image: ${REGISTRY:-eshop}/mobileshoppingagg:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/mobileshoppingagg:latest
     build:
       context: .
       dockerfile: ApiGateways/Mobile.Bff.Shopping/aggregator/Dockerfile
@@ -85,7 +85,7 @@ services:
       - basket-api
 
   webshoppingagg:
-    image: ${REGISTRY:-eshop}/webshoppingagg:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/webshoppingagg:latest
     build:
       context: .
       dockerfile: ApiGateways/Web.Bff.Shopping/aggregator/Dockerfile
@@ -98,7 +98,7 @@ services:
       - basket-api
 
   ordering-signalrhub:
-    image: ${REGISTRY:-eshop}/ordering.signalrhub:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/ordering.signalrhub:latest
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.SignalrHub/Dockerfile
@@ -111,13 +111,13 @@ services:
       - basket-api
 
   webstatus:
-    image: ${REGISTRY:-eshop}/webstatus:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/webstatus:latest
     build:
       context: .
       dockerfile: Web/WebStatus/Dockerfile
 
   webspa:
-    image: ${REGISTRY:-eshop}/webspa:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/webspa:latest
     build:
       context: .
       dockerfile: Web/WebSPA/Dockerfile
@@ -128,7 +128,7 @@ services:
       - webshoppingapigw
 
   webmvc:
-    image: ${REGISTRY:-eshop}/webmvc:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/webmvc:latest
     build:
       context: .
       dockerfile: Web/WebMVC/Dockerfile
@@ -137,7 +137,7 @@ services:
       - webshoppingapigw
 
   webhooks-client:
-    image: ${REGISTRY:-eshop}/webhooks.client:${PLATFORM:-linux}-${TAG:-latest}
+    image: gcr.io/pelagic-bastion-359618/webhooks.client:latest
     build:
       context: .
       dockerfile: Web/WebhookClient/Dockerfile
