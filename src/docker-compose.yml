@@ -3,16 +3,28 @@ version: '3.4'
 services:
 
   seq:
-    image: datalust/seq:latest
+    image: gcr.io/pelagic-bastion-359618/seq:latest
+    build:
+      context: .
+      dockerfile: DockerHub_Images/seq/Dockerfile
 
   nosqldata:
-    image: mongo
+    image: gcr.io/pelagic-bastion-359618/mongo:latest
+    build:
+      context: .
+      dockerfile: DockerHub_Images/nosqldata/Dockerfile
 
   basketdata:
-    image: redis:alpine
+    image: gcr.io/pelagic-bastion-359618/redis:latest
+    build:
+      context: .
+      dockerfile: DockerHub_Images/basketdata/Dockerfile
 
   rabbitmq:
-    image: rabbitmq:3-management-alpine
+    image: gcr.io/pelagic-bastion-359618/rabbitmq:latest
+    build:
+      context: .
+      dockerfile: DockerHub_Images/rabbitmq/Dockerfile
 
   identity-api:
     image: gcr.io/pelagic-bastion-359618/identity.api:latest
@@ -69,7 +81,10 @@ services:
       dockerfile: Services/Webhooks/Webhooks.API/Dockerfile
 
   mobileshoppingapigw:
-    image: envoyproxy/envoy:v1.11.1
+    image: gcr.io/pelagic-bastion-359618/mobileshoppingapigw:latest
+    build:
+      context: .
+      dockerfile: DockerHub_Images/mobileshoppingapigw/Dockerfile
 
   mobileshoppingagg:
     image: gcr.io/pelagic-bastion-359618/mobileshoppingagg:latest
@@ -145,4 +160,7 @@ services:
       - webhooks-api
 
   webshoppingapigw:
-    image: envoyproxy/envoy:v1.11.1
+    image: gcr.io/pelagic-bastion-359618/webshoppingapigw:latest
+    build:
+      context: .
+      dockerfile: DockerHub_Images/webshoppingapigw/Dockerfile
