@@ -23,6 +23,7 @@ build_web:
   before_script:
     - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
   script:
+    - cd src
     - docker-compose build webhooks-client webmvc webspa webstatus
     - docker push gcr.io/pelagic-bastion-359618/webhooks.client:latest
     - docker push gcr.io/pelagic-bastion-359618/webmvc:latest
@@ -34,6 +35,7 @@ build_dockerhub:
   before_script:
     - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
   script:
+    - cd src
     - docker-compose build seq nosqldata basketdata rabbitmq mobileshoppingapigw webshoppingapigw
     - docker push gcr.io/pelagic-bastion-359618/seq:latest
     - docker push gcr.io/pelagic-bastion-359618/mongo:latest
@@ -47,6 +49,7 @@ build_apigw:
   before_script:
     - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
   script:
+    - cd src
     - docker-compose build ordering-backgroundtasks mobileshoppingagg webshoppingagg ordering-signalrhub
     - docker push gcr.io/pelagic-bastion-359618/ordering.backgroundtasks:latest
     - docker push gcr.io/pelagic-bastion-359618/mobileshoppingagg:latest
