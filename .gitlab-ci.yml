@@ -1,5 +1,7 @@
 stages:
   - build
+  - start
+  - upload
   - deploy
 
 build_services:
@@ -67,16 +69,27 @@ build_apigw:
     - docker push gcr.io/pelagic-bastion-359618/webshoppingagg:latest
     - docker push gcr.io/pelagic-bastion-359618/ordering.signalrhub:latest
 
-deploy_app:
+start_instances:
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
-  stage: deploy
+  stage: start
   script:
     - aws ec2 start-instances --instance-ids $MASTER_ID
     - aws ec2 start-instances --instance-ids $NODE1_ID
     - aws ec2 start-instances --instance-ids $NODE2_ID
     - sleep 20s
+
+upload_files:
+  image: ubuntu:18.04
+  stage: upload
+  script:
     - yes | scp -i $DEPLOY_PAIR ./Master_Files/docker-compose.yml ec2-user@$PUBLIC_IP:/home/docker_files
     - yes | scp -i $DEPLOY_PAIR ./Master_Files/eShopOnContainers/mobileshopping/envoy.yaml ec2-user@$PUBLIC_IP:/home/docker_files/mobileshopping
     - yes | scp -i $DEPLOY_PAIR ./Master_Files/eShopOnContainers/webshopping/envoy.yaml ec2-user@$PUBLIC_IP:/home/docker_files/webshopping
+
+
+deploy_stack:
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  stage: deploy
+  script:
     - aws ssm send-command --instance-ids $MASTER_ID --document-name "DeployDockerStack"
 
