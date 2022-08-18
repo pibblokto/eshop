@@ -88,7 +88,7 @@ upload_files:
     - apt-get update -y
     - apt-get install openssh-client -y
     - echo "$DEPLOY_PAIR" > scpPair.pem
-    - chmod 400 scpPair.pem
+    - chmod 777 scpPair.pem
     - scp -i scpPair.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./Master_Files/docker-compose.yml ec2-user@"$PUBLIC_IP":/home/docker_files
     - yes | scp -i scpPair.pem ./Master_Files/eShopOnContainers/mobileshopping/envoy.yaml ec2-user@"$PUBLIC_IP":/home/docker_files/mobileshopping
     - yes | scp -i scpPair.pem ./Master_Files/eShopOnContainers/webshopping/envoy.yaml ec2-user@"$PUBLIC_IP":/home/docker_files/webshopping
