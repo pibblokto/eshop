@@ -3,7 +3,9 @@ stages:
   - deploy
 
 build_services:
-  image: docker:dind
+  image: docker:git
+  services:
+    - docker:dind
   stage: build
   before_script:
     - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
@@ -18,7 +20,9 @@ build_services:
     - docker push gcr.io/pelagic-bastion-359618/webhooks.api:latest
   
 build_web:
-  image: docker:dind
+  image: docker:git
+  services:
+    - docker:dind
   stage: build
   before_script:
     - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
@@ -31,7 +35,9 @@ build_web:
     - docker push gcr.io/pelagic-bastion-359618/webstatus:latest
   
 build_dockerhub:
-  image: docker:dind
+  image: docker:git
+  services:
+    - docker:dind
   when: manual
   stage: build
   before_script:
@@ -47,7 +53,9 @@ build_dockerhub:
     - docker push gcr.io/pelagic-bastion-359618/webshoppingapigw:latest
 
 build_apigw:
-  image: docker:dind
+  image: docker:git
+  services:
+    - docker:dind
   stage: build
   before_script:
     - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
