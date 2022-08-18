@@ -1,10 +1,9 @@
-image: docker:git
-
-services:
-  - docker:dind
-
+stages:
+  - build
+  - deploy
 
 build_services:
+  image: docker:dind
   stage: build
   before_script:
     - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
@@ -19,6 +18,7 @@ build_services:
     - docker push gcr.io/pelagic-bastion-359618/webhooks.api:latest
   
 build_web:
+  image: docker:dind
   stage: build
   before_script:
     - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
@@ -31,6 +31,8 @@ build_web:
     - docker push gcr.io/pelagic-bastion-359618/webstatus:latest
   
 build_dockerhub:
+  image: docker:dind
+  when: manual
   stage: build
   before_script:
     - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
@@ -45,6 +47,7 @@ build_dockerhub:
     - docker push gcr.io/pelagic-bastion-359618/webshoppingapigw:latest
 
 build_apigw:
+  image: docker:dind
   stage: build
   before_script:
     - echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
@@ -55,3 +58,17 @@ build_apigw:
     - docker push gcr.io/pelagic-bastion-359618/mobileshoppingagg:latest
     - docker push gcr.io/pelagic-bastion-359618/webshoppingagg:latest
     - docker push gcr.io/pelagic-bastion-359618/ordering.signalrhub:latest
+
+deploy_app:
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  stage: deploy
+  script:
+    - aws ec2 start-instances --instance-ids $MASTER_ID
+    - aws ec2 start-instances --instance-ids $NODE1_ID
+    - aws ec2 start-instances --instance-ids $NODE2_ID
+    - sleep 20s
+    - yes | scp -i $DEPLOY_PAIR ./Master_Files/docker-compose.yml ec2-user@$PUBLIC_IP:/home/docker_files
+    - yes | scp -i $DEPLOY_PAIR ./Master_Files/eShopOnContainers/mobileshopping/envoy.yaml ec2-user@$PUBLIC_IP:/home/docker_files/mobileshopping
+    - yes | scp -i $DEPLOY_PAIR ./Master_Files/eShopOnContainers/webshopping/envoy.yaml ec2-user@$PUBLIC_IP:/home/docker_files/webshopping
+    - aws ssm send-command --instance-ids $MASTER_ID --document-name "DeployDockerStack"
+
