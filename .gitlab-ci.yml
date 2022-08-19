@@ -97,4 +97,4 @@ deploy_stack:
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   stage: deploy
   script:
-    - aws ssm send-command --instance-ids $MASTER_ID --parameters 'GCRLOGIN="${GOOGLE_CLOUD_ACCOUNT}"' --document-name "DeployDockerStack"
+    - aws ssm send-command --instance-ids $MASTER_ID --parameters 'GCRLOGIN='${GOOGLE_CLOUD_ACCOUNT}'' --document-name "DeployDockerStack"
