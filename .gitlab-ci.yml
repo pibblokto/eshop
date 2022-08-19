@@ -89,6 +89,9 @@ upload_files:
     - apt-get update -y
     - apt-get install -y awscli
     - apt install -y zip unzip
+    - cd docker_files
+    - echo $GOOGLE_CLOUD_ACCOUNT > gcrkey.json
+    - cd ..
     - zip -r docker_files docker_files
     - aws s3 cp ./docker_files.zip s3://eshopbucketname
 
@@ -97,4 +100,4 @@ deploy_stack:
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   stage: deploy
   script:
-    - aws ssm send-command --instance-ids $MASTER_ID --parameters 'GCRLOGIN='${GOOGLE_CLOUD_ACCOUNT}'' --document-name "DeployDockerStack"
+    - aws ssm send-command --instance-ids $MASTER_ID --document-name "DeployDockerStack"
