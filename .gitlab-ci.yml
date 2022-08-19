@@ -85,6 +85,7 @@ upload_files:
   image: ubuntu:18.04
   stage: upload
   script:
+    - export DEBIAN_FRONTEND=noninteractive
     - apt-get update -y
     - apt-get install -y awscli
     - apt install -y zip unzip
@@ -98,4 +99,3 @@ deploy_stack:
   script:
     - aws ssm send-command --instance-ids $MASTER_ID --document-name "DeployDockerStack"
 
-#
