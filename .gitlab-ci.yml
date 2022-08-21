@@ -5,7 +5,6 @@ stages:
   - deploy
 
 build_services:
-  when: manual
   image: docker:git
   services:
     - docker:dind
@@ -23,7 +22,6 @@ build_services:
     - docker push gcr.io/pelagic-bastion-359618/webhooks.api:latest
   
 build_web:
-  when: manual
   image: docker:git
   services:
     - docker:dind
@@ -57,7 +55,6 @@ build_dockerhub:
     - docker push gcr.io/pelagic-bastion-359618/webshoppingapigw:latest
 
 build_apigw:
-  when: manual
   image: docker:git
   services:
     - docker:dind
