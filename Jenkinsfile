@@ -6,10 +6,11 @@ pipeline {
                 stage(“build_services”) {
                     steps {
                         sh '''
+                            sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
                             sudo chmod 777 /var/run/docker.sock
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             cd src
-                            sudo docker-compose build identity-api basket-api catalog-api ordering-api payment-api webhooks-api
+                            sudo /usr/local/bin/docker-compose build identity-api basket-api catalog-api ordering-api payment-api webhooks-api
                             sudo docker push gcr.io/pelagic-bastion-359618/identity.api:latest
                             sudo docker push gcr.io/pelagic-bastion-359618/basket.api:latest
                             sudo docker push gcr.io/pelagic-bastion-359618/catalog.api:latest
@@ -22,10 +23,11 @@ pipeline {
                 stage(“build_web”) {
                       steps {
                         sh '''
+                            sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
                             sudo chmod 777 /var/run/docker.sock
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             cd src
-                            sudo docker-compose build webhooks-client webmvc webspa webstatus
+                            sudo /usr/local/bin/docker-compose build webhooks-client webmvc webspa webstatus
                             sudo docker push gcr.io/pelagic-bastion-359618/webhooks.client:latest
                             sudo docker push gcr.io/pelagic-bastion-359618/webmvc:latest
                             sudo docker push gcr.io/pelagic-bastion-359618/webspa:latest
@@ -37,10 +39,11 @@ pipeline {
                 stage(“build_dockerhub”) {
                      steps {
                         sh '''
+                            sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
                             sudo chmod 777 /var/run/docker.sock
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             cd src
-                            sudo docker-compose build seq nosqldata basketdata rabbitmq mobileshoppingapigw webshoppingapigw
+                            sudo /usr/local/bin/docker-compose build seq nosqldata basketdata rabbitmq mobileshoppingapigw webshoppingapigw
                             sudo docker push gcr.io/pelagic-bastion-359618/seq:latest
                             sudo docker push gcr.io/pelagic-bastion-359618/mongo:latest
                             sudo docker push gcr.io/pelagic-bastion-359618/redis:latest
@@ -53,10 +56,11 @@ pipeline {
                 stage(“build_apigw”) {
                      steps {
                         sh '''
+                            sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
                             sudo chmod 777 /var/run/docker.sock
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             cd src
-                            sudo docker-compose build ordering-backgroundtasks mobileshoppingagg webshoppingagg ordering-signalrhub
+                            sudo /usr/local/bin/docker-compose build ordering-backgroundtasks mobileshoppingagg webshoppingagg ordering-signalrhub
                             sudo docker push gcr.io/pelagic-bastion-359618/ordering.backgroundtasks:latest
                             sudo docker push gcr.io/pelagic-bastion-359618/mobileshoppingagg:latest
                             sudo docker push gcr.io/pelagic-bastion-359618/webshoppingagg:latest
