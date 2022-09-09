@@ -6,6 +6,7 @@ pipeline {
                 stage(“build_services”) {
                     steps {
                         sh '''
+                            sudo usermod -a -G docker jenkins
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             cd src
                             sudo docker-compose build identity-api basket-api catalog-api ordering-api payment-api webhooks-api
@@ -21,6 +22,7 @@ pipeline {
                 stage(“build_web”) {
                       steps {
                         sh '''
+                            sudo usermod -a -G docker jenkins
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             cd src
                             sudo docker-compose build webhooks-client webmvc webspa webstatus
@@ -35,6 +37,7 @@ pipeline {
                 stage(“build_dockerhub”) {
                      steps {
                         sh '''
+                            sudo usermod -a -G docker jenkins
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             cd src
                             sudo docker-compose build seq nosqldata basketdata rabbitmq mobileshoppingapigw webshoppingapigw
@@ -50,6 +53,7 @@ pipeline {
                 stage(“build_apigw”) {
                      steps {
                         sh '''
+                            sudo usermod -a -G docker jenkins
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             cd src
                             sudo docker-compose build ordering-backgroundtasks mobileshoppingagg webshoppingagg ordering-signalrhub
