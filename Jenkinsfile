@@ -8,6 +8,7 @@ pipeline {
                     steps {
                         sh '''
                             sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                            sudo chmod +x /usr/local/bin/docker-compose
                             sudo chmod 777 /var/run/docker.sock
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             cd src
@@ -26,6 +27,7 @@ pipeline {
                     steps {
                         sh '''
                         sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                        sudo chmod +x /usr/local/bin/docker-compose
                         sudo chmod 777 /var/run/docker.sock
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                         cd src
@@ -43,6 +45,7 @@ pipeline {
                     steps {
                         sh '''
                             sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                            sudo chmod +x /usr/local/bin/docker-compose
                             sudo chmod 777 /var/run/docker.sock
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             cd src
@@ -61,6 +64,7 @@ pipeline {
                     steps {
                            sh '''
                            sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                           sudo chmod +x /usr/local/bin/docker-compose
                            sudo chmod 777 /var/run/docker.sock
                            sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                            cd src
