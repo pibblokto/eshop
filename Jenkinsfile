@@ -7,6 +7,7 @@ pipeline {
                     agent any
                     steps {
                         sh '''
+                            sudo usermod -a -G docker ${USER}
                             sudo chmod +x /usr/local/bin/docker-compose
                             sudo chmod 777 /var/run/docker.sock
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
@@ -25,6 +26,7 @@ pipeline {
                     agent any
                     steps {
                         sh '''
+                        sudo usermod -a -G docker ${USER}
                         sudo chmod +x /usr/local/bin/docker-compose
                         sudo chmod 777 /var/run/docker.sock
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
@@ -42,6 +44,7 @@ pipeline {
                     agent any
                     steps {
                         sh ''' 
+                            sudo usermod -a -G docker ${USER}
                             sudo chmod +x /usr/local/bin/docker-compose
                             sudo chmod 777 /var/run/docker.sock
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
@@ -60,6 +63,7 @@ pipeline {
                     agent any
                     steps {
                            sh '''
+                           sudo usermod -a -G docker ${USER}
                            sudo chmod +x /usr/local/bin/docker-compose
                            sudo chmod 777 /var/run/docker.sock
                            sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
@@ -76,3 +80,8 @@ pipeline {
         }
     }
 }
+
+
+
+
+
