@@ -7,6 +7,7 @@ pipeline {
                     agent any
                     steps {
                         sh '''
+                            cat $GOOGLE_CLOUD_ACCOUNT
                             sudo yum install -y git
                             sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
                             sudo chmod +x /usr/local/bin/docker-compose
@@ -27,6 +28,7 @@ pipeline {
                     agent any
                     steps {
                         sh '''
+                        cat $GOOGLE_CLOUD_ACCOUNT
                         sudo yum install -y git
                         sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
                         sudo chmod +x /usr/local/bin/docker-compose
@@ -45,7 +47,8 @@ pipeline {
                 stage(“build_dockerhub”) {
                     agent any
                     steps {
-                        sh '''
+                        sh ''' 
+                            cat $GOOGLE_CLOUD_ACCOUNT
                             sudo yum install -y git
                             sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
                             sudo chmod +x /usr/local/bin/docker-compose
@@ -66,6 +69,7 @@ pipeline {
                     agent any
                     steps {
                            sh '''
+                           cat $GOOGLE_CLOUD_ACCOUNT
                            sudo yum install -y git
                            sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
                            sudo chmod +x /usr/local/bin/docker-compose
