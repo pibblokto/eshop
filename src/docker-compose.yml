@@ -3,37 +3,37 @@ version: '3.4'
 services:
 
   seq:
-    image: gcr.io/pelagic-bastion-359618/seq:latest
+    image: gcr.io/eshop-infrastructure/seq:latest
     build:
       context: .
       dockerfile: DockerHub_Images/seq/Dockerfile
 
   nosqldata:
-    image: gcr.io/pelagic-bastion-359618/mongo:latest
+    image: gcr.io/eshop-infrastructure/mongo:latest
     build:
       context: .
       dockerfile: DockerHub_Images/nosqldata/Dockerfile
 
   basketdata:
-    image: gcr.io/pelagic-bastion-359618/redis:latest
+    image: gcr.io/eshop-infrastructure/redis:latest
     build:
       context: .
       dockerfile: DockerHub_Images/basketdata/Dockerfile
 
   rabbitmq:
-    image: gcr.io/pelagic-bastion-359618/rabbitmq:latest
+    image: gcr.io/eshop-infrastructure/rabbitmq:latest
     build:
       context: .
       dockerfile: DockerHub_Images/rabbitmq/Dockerfile
 
   identity-api:
-    image: gcr.io/pelagic-bastion-359618/identity.api:latest
+    image: gcr.io/eshop-infrastructure/identity.api:latest
     build:
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
 
   basket-api:
-    image: gcr.io/pelagic-bastion-359618/basket.api:latest
+    image: gcr.io/eshop-infrastructure/basket.api:latest
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
@@ -43,7 +43,7 @@ services:
       - rabbitmq
 
   catalog-api:
-    image: gcr.io/pelagic-bastion-359618/catalog.api:latest
+    image: gcr.io/eshop-infrastructure/catalog.api:latest
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
@@ -51,7 +51,7 @@ services:
       - rabbitmq
 
   ordering-api:
-    image: gcr.io/pelagic-bastion-359618/ordering.api:latest
+    image: gcr.io/eshop-infrastructure/ordering.api:latest
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.API/Dockerfile
@@ -59,7 +59,7 @@ services:
       - rabbitmq
 
   ordering-backgroundtasks:
-    image: gcr.io/pelagic-bastion-359618/ordering.backgroundtasks:latest
+    image: gcr.io/eshop-infrastructure/ordering.backgroundtasks:latest
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.BackgroundTasks/Dockerfile
@@ -67,7 +67,7 @@ services:
       - rabbitmq
 
   payment-api:
-    image: gcr.io/pelagic-bastion-359618/payment.api:latest
+    image: gcr.io/eshop-infrastructure/payment.api:latest
     build:
       context: .
       dockerfile: Services/Payment/Payment.API/Dockerfile
@@ -75,19 +75,19 @@ services:
       - rabbitmq
 
   webhooks-api:
-    image: gcr.io/pelagic-bastion-359618/webhooks.api:latest
+    image: gcr.io/eshop-infrastructure/webhooks.api:latest
     build:
       context: .
       dockerfile: Services/Webhooks/Webhooks.API/Dockerfile
 
   mobileshoppingapigw:
-    image: gcr.io/pelagic-bastion-359618/mobileshoppingapigw:latest
+    image: gcr.io/eshop-infrastructure/mobileshoppingapigw:latest
     build:
       context: .
       dockerfile: DockerHub_Images/mobileshoppingapigw/Dockerfile
 
   mobileshoppingagg:
-    image: gcr.io/pelagic-bastion-359618/mobileshoppingagg:latest
+    image: gcr.io/eshop-infrastructure/mobileshoppingagg:latest
     build:
       context: .
       dockerfile: ApiGateways/Mobile.Bff.Shopping/aggregator/Dockerfile
@@ -100,7 +100,7 @@ services:
       - basket-api
 
   webshoppingagg:
-    image: gcr.io/pelagic-bastion-359618/webshoppingagg:latest
+    image: gcr.io/eshop-infrastructure/webshoppingagg:latest
     build:
       context: .
       dockerfile: ApiGateways/Web.Bff.Shopping/aggregator/Dockerfile
@@ -113,7 +113,7 @@ services:
       - basket-api
 
   ordering-signalrhub:
-    image: gcr.io/pelagic-bastion-359618/ordering.signalrhub:latest
+    image: gcr.io/eshop-infrastructure/ordering.signalrhub:latest
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.SignalrHub/Dockerfile
@@ -126,13 +126,13 @@ services:
       - basket-api
 
   webstatus:
-    image: gcr.io/pelagic-bastion-359618/webstatus:latest
+    image: gcr.io/eshop-infrastructure/webstatus:latest
     build:
       context: .
       dockerfile: Web/WebStatus/Dockerfile
 
   webspa:
-    image: gcr.io/pelagic-bastion-359618/webspa:latest
+    image: gcr.io/eshop-infrastructure/webspa:latest
     build:
       context: .
       dockerfile: Web/WebSPA/Dockerfile
@@ -143,7 +143,7 @@ services:
       - webshoppingapigw
 
   webmvc:
-    image: gcr.io/pelagic-bastion-359618/webmvc:latest
+    image: gcr.io/eshop-infrastructure/webmvc:latest
     build:
       context: .
       dockerfile: Web/WebMVC/Dockerfile
@@ -152,7 +152,7 @@ services:
       - webshoppingapigw
 
   webhooks-client:
-    image: gcr.io/pelagic-bastion-359618/webhooks.client:latest
+    image: gcr.io/eshop-infrastructure/webhooks.client:latest
     build:
       context: .
       dockerfile: Web/WebhookClient/Dockerfile
@@ -160,7 +160,7 @@ services:
       - webhooks-api
 
   webshoppingapigw:
-    image: gcr.io/pelagic-bastion-359618/webshoppingapigw:latest
+    image: gcr.io/eshop-infrastructure/webshoppingapigw:latest
     build:
       context: .
       dockerfile: DockerHub_Images/webshoppingapigw/Dockerfile
