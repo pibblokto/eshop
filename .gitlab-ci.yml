@@ -1,7 +1,7 @@
 stages:
   - build
   - start
-  - upload
+  - update
   - deploy
 
 build_services:
@@ -20,7 +20,7 @@ build_services:
     - docker push gcr.io/pelagic-bastion-359618/ordering.api:latest
     - docker push gcr.io/pelagic-bastion-359618/payment.api:latest
     - docker push gcr.io/pelagic-bastion-359618/webhooks.api:latest
-  
+
 build_web:
   image: docker:git
   services:
@@ -35,7 +35,7 @@ build_web:
     - docker push gcr.io/pelagic-bastion-359618/webmvc:latest
     - docker push gcr.io/pelagic-bastion-359618/webspa:latest
     - docker push gcr.io/pelagic-bastion-359618/webstatus:latest
-  
+
 build_dockerhub:
   image: docker:git
   services:
@@ -78,9 +78,9 @@ start_instances:
     - aws ec2 start-instances --instance-ids $NODE2_ID
     - sleep 20s
 
-upload_files:
+update_files:
   image: ubuntu:18.04
-  stage: upload
+  stage: update
   script:
     - export DEBIAN_FRONTEND=noninteractive
     - apt-get update -y
@@ -91,7 +91,6 @@ upload_files:
     - cd ..
     - zip -r docker_files docker_files
     - aws s3 cp ./docker_files.zip s3://eshopbucketname
-
 
 deploy_stack:
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
