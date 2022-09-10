@@ -7,12 +7,11 @@ pipeline {
                     agent any
                     steps {
                         sh '''
-                            sudo usermod -a -G docker ${USER}
                             sudo chmod +x /usr/local/bin/docker-compose
                             sudo chmod 777 /var/run/docker.sock
-                            sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             cd src
                             sudo /usr/local/bin/docker-compose build identity-api basket-api catalog-api ordering-api payment-api webhooks-api
+                            sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             sudo docker push gcr.io/eshop-infrastructure/identity.api:latest
                             sudo docker push gcr.io/eshop-infrastructure/basket.api:latest
                             sudo docker push gcr.io/eshop-infrastructure/catalog.api:latest
@@ -26,12 +25,11 @@ pipeline {
                     agent any
                     steps {
                         sh '''
-                        sudo usermod -a -G docker ${USER}
                         sudo chmod +x /usr/local/bin/docker-compose
                         sudo chmod 777 /var/run/docker.sock
-                        sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                         cd src
                         sudo /usr/local/bin/docker-compose build webhooks-client webmvc webspa webstatus
+                        sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                         sudo docker push gcr.io/eshop-infrastructure/webhooks.client:latest
                         sudo docker push gcr.io/eshop-infrastructure/webmvc:latest
                         sudo docker push gcr.io/eshop-infrastructure/webspa:latest
@@ -44,12 +42,11 @@ pipeline {
                     agent any
                     steps {
                         sh ''' 
-                            sudo usermod -a -G docker ${USER}
                             sudo chmod +x /usr/local/bin/docker-compose
                             sudo chmod 777 /var/run/docker.sock
-                            sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             cd src
                             sudo /usr/local/bin/docker-compose build seq nosqldata basketdata rabbitmq mobileshoppingapigw webshoppingapigw
+                            sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             sudo docker push gcr.io/eshop-infrastructure/seq:latest
                             sudo docker push gcr.io/eshop-infrastructure/mongo:latest
                             sudo docker push gcr.io/eshop-infrastructure/redis:latest
@@ -63,12 +60,11 @@ pipeline {
                     agent any
                     steps {
                            sh '''
-                           sudo usermod -a -G docker ${USER}
                            sudo chmod +x /usr/local/bin/docker-compose
                            sudo chmod 777 /var/run/docker.sock
-                           sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                            cd src
                            sudo /usr/local/bin/docker-compose build ordering-backgroundtasks mobileshoppingagg webshoppingagg ordering-signalrhub
+                           sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                            sudo docker push gcr.io/eshop-infrastructure/ordering.backgroundtasks:latest
                            sudo docker push gcr.io/eshop-infrastructure/mobileshoppingagg:latest
                            sudo docker push gcr.io/eshop-infrastructure/webshoppingagg:latest
