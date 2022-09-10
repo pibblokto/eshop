@@ -21,23 +21,63 @@ pipeline {
                         '''
                         }
                 }
-                stage(“build_web”) {
+                stage(“build_web1”) {
                     agent any
                     steps {
                         sh '''
                         sudo chmod +x /usr/local/bin/docker-compose
                         sudo chmod 777 /var/run/docker.sock
                         cd src
-                        sudo /usr/local/bin/docker-compose build webhooks-client webmvc webspa webstatus
+                        sudo /usr/local/bin/docker-compose build webhooks-client
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                         docker push gcr.io/eshop-infrastructure/webhooks.client:latest
+                    '''
+                    }
+
+                }
+                stage(“build_web2”) {
+                    agent any
+                    steps {
+                        sh '''
+                        sudo chmod +x /usr/local/bin/docker-compose
+                        sudo chmod 777 /var/run/docker.sock
+                        cd src
+                        sudo /usr/local/bin/docker-compose build webmvc
+                        sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                         docker push gcr.io/eshop-infrastructure/webmvc:latest
+                    '''
+                    }
+
+                }
+                stage(“build_web3”) {
+                    agent any
+                    steps {
+                        sh '''
+                        sudo chmod +x /usr/local/bin/docker-compose
+                        sudo chmod 777 /var/run/docker.sock
+                        cd src
+                        sudo /usr/local/bin/docker-compose build webspa
+                        sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                         docker push gcr.io/eshop-infrastructure/webspa:latest
+                    '''
+                    }
+
+                }
+                stage(“build_web4”) {
+                    agent any
+                    steps {
+                        sh '''
+                        sudo chmod +x /usr/local/bin/docker-compose
+                        sudo chmod 777 /var/run/docker.sock
+                        cd src
+                        sudo /usr/local/bin/docker-compose build webstatus
+                        sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                         docker push gcr.io/eshop-infrastructure/webstatus:latest
                     '''
                     }
 
                 }
+
                 stage(“build_dockerhub”) {
                     agent any
                     steps {
