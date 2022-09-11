@@ -117,19 +117,19 @@ pipeline {
         stage("Update_files") {
             steps {
                 sh '''
-                yum install -y zip unzip
+                sudo yum install -y zip unzip
                 cd docker_files
-                echo $GOOGLE_CLOUD_ACCOUNT > gcrkey.json
+                sudo echo $GOOGLE_CLOUD_ACCOUNT > gcrkey.json
                 cd ..
-                zip -r docker_files docker_files
-                aws s3 cp ./docker_files.zip s3://${BucketName}
+                sudo zip -r docker_files docker_files
+                sudo aws s3 cp ./docker_files.zip s3://${BucketName}
                 '''
                 }
         }
         stage("Deploy") {
             steps {
                 sh '''
-                aws ssm send-command --instance-ids $MasterNodeId --document-name "DeployDockerStack"
+                sudo aws ssm send-command --instance-ids $MasterNodeId --document-name "DeployDockerStack"
                 '''
                 }
         }
