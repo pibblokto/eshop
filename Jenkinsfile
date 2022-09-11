@@ -129,7 +129,7 @@ pipeline {
         stage("Deploy") {
             steps {
                 sh '''
-                sudo aws ssm send-command --instance-ids $MasterNodeId --document-name "DeployDockerStack"
+                sudo aws ssm send-command --instance-ids $MasterNodeId --region "us-east-1" --document-name "DeployDockerStack"
                 '''
                 }
         }
