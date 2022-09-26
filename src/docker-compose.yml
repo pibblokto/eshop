@@ -50,8 +50,8 @@ services:
     depends_on:
       - rabbitmq
 
-  ordering-api:
-    image: gcr.io/eshop-infrastructure/ordering.api:1
+  orderingapi:
+    image: gcr.io/eshop-infrastructure/orderingapi:1
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.API/Dockerfile
@@ -66,8 +66,8 @@ services:
     depends_on:
       - rabbitmq
 
-  payment-api:
-    image: gcr.io/eshop-infrastructure/payment.api:1
+  paymentapi:
+    image: gcr.io/eshop-infrastructure/paymentapi:1
     build:
       context: .
       dockerfile: Services/Payment/Payment.API/Dockerfile
