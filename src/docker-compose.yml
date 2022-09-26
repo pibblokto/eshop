@@ -95,7 +95,7 @@ services:
       - nosqldata
       - identity-api
       - rabbitmq
-      - ordering-api
+      - orderingapi
       - catalog-api
       - basket-api
 
@@ -108,7 +108,7 @@ services:
       - nosqldata
       - identity-api
       - rabbitmq
-      - ordering-api
+      - orderingapi
       - catalog-api
       - basket-api
 
@@ -121,7 +121,7 @@ services:
       - nosqldata
       - identity-api
       - rabbitmq
-      - ordering-api
+      - orderingapi
       - catalog-api
       - basket-api
 
