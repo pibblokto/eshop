@@ -10,7 +10,7 @@ pipeline {
                             sudo chmod +x /usr/local/bin/docker-compose
                             sudo chmod 777 /var/run/docker.sock
                             cd src
-                            sudo /usr/local/bin/docker-compose build identity-api basket-api catalog-api ordering-api payment-api webhooks-api
+                            sudo /usr/local/bin/docker-compose build identity-api basket-api catalog-api orderingapi paymentapi webhooks-api
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             docker push gcr.io/eshop-infrastructure/identity.api:1
                             docker push gcr.io/eshop-infrastructure/basket.api:1
