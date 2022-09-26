@@ -92,7 +92,7 @@ services:
       - "5101:80"
       - "9101:81"
 
-  ordering-api:
+  orderingapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -136,7 +136,7 @@ services:
     ports:
       - "5111:80"
 
-  payment-api:
+  paymentapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
