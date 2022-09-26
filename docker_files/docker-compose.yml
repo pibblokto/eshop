@@ -100,8 +100,8 @@ services:
     depends_on:
       - rabbitmq
 
-  ordering-api:
-    image: gcr.io/eshop-infrastructure/ordering.api:1
+  orderingapi:
+    image: gcr.io/eshop-infrastructure/orderingapi:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -150,8 +150,8 @@ services:
     depends_on:
       - rabbitmq
 
-  payment-api:
-    image: gcr.io/eshop-infrastructure/payment.api:1
+  paymentapi:
+    image: gcr.io/eshop-infrastructure/paymentapi:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
