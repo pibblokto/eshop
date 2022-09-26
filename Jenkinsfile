@@ -12,12 +12,12 @@ pipeline {
                             cd src
                             sudo /usr/local/bin/docker-compose build identity-api basket-api catalog-api ordering-api payment-api webhooks-api
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                            docker push gcr.io/eshop-infrastructure/identity.api:latest
-                            docker push gcr.io/eshop-infrastructure/basket.api:latest
-                            docker push gcr.io/eshop-infrastructure/catalog.api:latest
-                            docker push gcr.io/eshop-infrastructure/ordering.api:latest
-                            docker push gcr.io/eshop-infrastructure/payment.api:latest
-                            docker push gcr.io/eshop-infrastructure/webhooks.api:latest
+                            docker push gcr.io/eshop-infrastructure/identity.api:1
+                            docker push gcr.io/eshop-infrastructure/basket.api:1
+                            docker push gcr.io/eshop-infrastructure/catalog.api:1
+                            docker push gcr.io/eshop-infrastructure/ordering.api:1
+                            docker push gcr.io/eshop-infrastructure/payment.api:1
+                            docker push gcr.io/eshop-infrastructure/webhooks.api:1
                         '''
                         }
                 }
@@ -30,7 +30,7 @@ pipeline {
                         cd src
                         sudo /usr/local/bin/docker-compose build webhooks-client
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                        docker push gcr.io/eshop-infrastructure/webhooks.client:latest
+                        docker push gcr.io/eshop-infrastructure/webhooks.client:1
                     '''
                     }
 
@@ -44,7 +44,7 @@ pipeline {
                         cd src
                         sudo /usr/local/bin/docker-compose build webmvc
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                        docker push gcr.io/eshop-infrastructure/webmvc:latest
+                        docker push gcr.io/eshop-infrastructure/webmvc:1
                     '''
                     }
 
@@ -58,7 +58,7 @@ pipeline {
                         cd src
                         sudo /usr/local/bin/docker-compose build webspa
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                        docker push gcr.io/eshop-infrastructure/webspa:latest
+                        docker push gcr.io/eshop-infrastructure/webspa:1
                     '''
                     }
 
@@ -72,7 +72,7 @@ pipeline {
                         cd src
                         sudo /usr/local/bin/docker-compose build webstatus
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                        docker push gcr.io/eshop-infrastructure/webstatus:latest
+                        docker push gcr.io/eshop-infrastructure/webstatus:1
                     '''
                     }
 
@@ -87,12 +87,12 @@ pipeline {
                             cd src
                             sudo /usr/local/bin/docker-compose build seq nosqldata basketdata rabbitmq mobileshoppingapigw webshoppingapigw
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                            docker push gcr.io/eshop-infrastructure/seq:latest
-                            docker push gcr.io/eshop-infrastructure/mongo:latest
-                            docker push gcr.io/eshop-infrastructure/redis:latest
-                            docker push gcr.io/eshop-infrastructure/rabbitmq:latest
-                            docker push gcr.io/eshop-infrastructure/mobileshoppingapigw:latest
-                            docker push gcr.io/eshop-infrastructure/webshoppingapigw:latest
+                            docker push gcr.io/eshop-infrastructure/seq:1
+                            docker push gcr.io/eshop-infrastructure/mongo:1
+                            docker push gcr.io/eshop-infrastructure/redis:1
+                            docker push gcr.io/eshop-infrastructure/rabbitmq:1
+                            docker push gcr.io/eshop-infrastructure/mobileshoppingapigw:1
+                            docker push gcr.io/eshop-infrastructure/webshoppingapigw:1
                         '''
                         }
                 }
@@ -105,10 +105,10 @@ pipeline {
                            cd src
                            sudo /usr/local/bin/docker-compose build ordering-backgroundtasks mobileshoppingagg webshoppingagg ordering-signalrhub
                            echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                           docker push gcr.io/eshop-infrastructure/ordering.backgroundtasks:latest
-                           docker push gcr.io/eshop-infrastructure/mobileshoppingagg:latest
-                           docker push gcr.io/eshop-infrastructure/webshoppingagg:latest
-                           docker push gcr.io/eshop-infrastructure/ordering.signalrhub:latest
+                           docker push gcr.io/eshop-infrastructure/ordering.backgroundtasks:1
+                           docker push gcr.io/eshop-infrastructure/mobileshoppingagg:1
+                           docker push gcr.io/eshop-infrastructure/webshoppingagg:1
+                           docker push gcr.io/eshop-infrastructure/ordering.signalrhub:1
                        '''
                        }
                 }
@@ -123,13 +123,6 @@ pipeline {
                 cd ..
                 sudo zip -r docker_files docker_files
                 sudo aws s3 cp ./docker_files.zip s3://${BucketName}
-                '''
-                }
-        }
-        stage("Deploy") {
-            steps {
-                sh '''
-                sudo aws ssm send-command --instance-ids $MasterNodeId --region "us-east-1" --document-name "DeployDockerStack"
                 '''
                 }
         }
