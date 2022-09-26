@@ -3,34 +3,34 @@ version: '3.4'
 services:
 
   seq:
-    image: gcr.io/eshop-infrastructure/seq:latest
+    image: gcr.io/eshop-infrastructure/seq:1
     environment:
       - ACCEPT_EULA=Y
     ports:
       - "5340:80"
 
   nosqldata:
-    image: gcr.io/eshop-infrastructure/mongo:latest
+    image: gcr.io/eshop-infrastructure/mongo:1
     ports:
       - "27017:27017"
     volumes:
       - eshop-nosqldata:/data/db
 
   basketdata:
-    image: gcr.io/eshop-infrastructure/redis:latest
+    image: gcr.io/eshop-infrastructure/redis:1
     ports:
       - "6379:6379"
     volumes:
       - eshop-basketdata:/data
 
   rabbitmq:
-    image: gcr.io/eshop-infrastructure/rabbitmq:latest
+    image: gcr.io/eshop-infrastructure/rabbitmq:1
     ports:
       - "15672:15672"
       - "5672:5672"
 
   identity-api:
-    image: gcr.io/eshop-infrastructure/identity.api:latest
+    image: gcr.io/eshop-infrastructure/identity.api:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -52,7 +52,7 @@ services:
 
 
   basket-api:
-    image: gcr.io/eshop-infrastructure/basket.api:latest
+    image: gcr.io/eshop-infrastructure/basket.api:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -78,7 +78,7 @@ services:
       - rabbitmq
 
   catalog-api:
-    image:  gcr.io/eshop-infrastructure/catalog.api:latest
+    image:  gcr.io/eshop-infrastructure/catalog.api:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionString=Server=tcp:172.20.55.29,1433;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sqlserver;Password=12345678
@@ -101,7 +101,7 @@ services:
       - rabbitmq
 
   ordering-api:
-    image: gcr.io/eshop-infrastructure/ordering.api:latest
+    image: gcr.io/eshop-infrastructure/ordering.api:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -129,7 +129,7 @@ services:
       - rabbitmq
 
   ordering-backgroundtasks:
-    image: gcr.io/eshop-infrastructure/ordering.backgroundtasks:latest
+    image: gcr.io/eshop-infrastructure/ordering.backgroundtasks:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -151,7 +151,7 @@ services:
       - rabbitmq
 
   payment-api:
-    image: gcr.io/eshop-infrastructure/payment.api:latest
+    image: gcr.io/eshop-infrastructure/payment.api:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -169,7 +169,7 @@ services:
       - rabbitmq
 
   webhooks-api:
-    image: gcr.io/eshop-infrastructure/webhooks.api:latest
+    image: gcr.io/eshop-infrastructure/webhooks.api:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -183,7 +183,7 @@ services:
       - "5113:80"
 
   mobileshoppingapigw:
-    image: gcr.io/eshop-infrastructure/mobileshoppingapigw:latest
+    image: gcr.io/eshop-infrastructure/mobileshoppingapigw:1
     volumes:
       - ./eShopOnContainers/mobileshopping:/etc/envoy
     ports:
@@ -191,7 +191,7 @@ services:
     - "15200:8001"
 
   mobileshoppingagg:
-    image: gcr.io/eshop-infrastructure/mobileshoppingagg:latest
+    image: gcr.io/eshop-infrastructure/mobileshoppingagg:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - urls__basket=http://basket-api
@@ -218,7 +218,7 @@ services:
       - basket-api
 
   webshoppingagg:
-    image: gcr.io/eshop-infrastructure/webshoppingagg:latest
+    image: gcr.io/eshop-infrastructure/webshoppingagg:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - urls__basket=http://basket-api
@@ -245,7 +245,7 @@ services:
       - basket-api
 
   ordering-signalrhub:
-    image: gcr.io/eshop-infrastructure/ordering.signalrhub:latest
+    image: gcr.io/eshop-infrastructure/ordering.signalrhub:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -267,7 +267,7 @@ services:
       - basket-api
 
   webstatus:
-    image: gcr.io/eshop-infrastructure/webstatus:latest
+    image: gcr.io/eshop-infrastructure/webstatus:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -299,7 +299,7 @@ services:
       - "5107:80"
 
   webspa:
-    image: gcr.io/eshop-infrastructure/webspa:latest
+    image: gcr.io/eshop-infrastructure/webspa:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -317,7 +317,7 @@ services:
       - webshoppingapigw
 
   webmvc:
-    image: gcr.io/eshop-infrastructure/webmvc:latest
+    image: gcr.io/eshop-infrastructure/webmvc:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -336,7 +336,7 @@ services:
       - webshoppingapigw
 
   webhooks-client:
-    image: gcr.io/eshop-infrastructure/webhooks.client:latest
+    image: gcr.io/eshop-infrastructure/webhooks.client:1
     environment:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - Token=6168DB8D-DC58-4094-AF24-483278923590      # Webhooks are registered with this token (any value is valid) but the client won't check it
@@ -350,7 +350,7 @@ services:
       - webhooks-api
 
   webshoppingapigw:
-    image: gcr.io/eshop-infrastructure/webshoppingapigw:latest
+    image: gcr.io/eshop-infrastructure/webshoppingapigw:1
     volumes:
       - ./eShopOnContainers/webshopping:/etc/envoy
     ports:
