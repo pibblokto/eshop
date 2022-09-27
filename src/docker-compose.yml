@@ -27,13 +27,13 @@ services:
       dockerfile: DockerHub_Images/rabbitmq/Dockerfile
 
   identityapi:
-    image: gcr.io/eshop-infrastructure/identity.api:main.${HASH}
+    image: gcr.io/eshop-infrastructure/identityapi:main.${HASH}
     build:
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
 
   basketapi:
-    image: gcr.io/eshop-infrastructure/basket.api:main.${HASH}
+    image: gcr.io/eshop-infrastructure/basketapi:main.${HASH}
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
@@ -43,7 +43,7 @@ services:
       - rabbitmq
 
   catalogapi:
-    image: gcr.io/eshop-infrastructure/catalog.api:main.${HASH}
+    image: gcr.io/eshop-infrastructure/catalogapi:main.${HASH}
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
@@ -59,7 +59,7 @@ services:
       - rabbitmq
 
   orderingbackgroundtasks:
-    image: gcr.io/eshop-infrastructure/ordering.backgroundtasks:main.${HASH}
+    image: gcr.io/eshop-infrastructure/orderingbackgroundtasks:main.${HASH}
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.BackgroundTasks/Dockerfile
@@ -75,7 +75,7 @@ services:
       - rabbitmq
 
   webhooksapi:
-    image: gcr.io/eshop-infrastructure/webhooks.api:main.${HASH}
+    image: gcr.io/eshop-infrastructure/webhooksapi:main.${HASH}
     build:
       context: .
       dockerfile: Services/Webhooks/Webhooks.API/Dockerfile
@@ -113,7 +113,7 @@ services:
       - basketapi
 
   orderingsignalrhub:
-    image: gcr.io/eshop-infrastructure/ordering.signalrhub:main.${HASH}
+    image: gcr.io/eshop-infrastructure/orderingsignalrhub:main.${HASH}
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.SignalrHub/Dockerfile
