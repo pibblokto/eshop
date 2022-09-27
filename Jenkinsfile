@@ -5,9 +5,6 @@ pipeline {
         }
     stages {
         stage(“Build_Application”) {
-            stage("generate_tag") {
-                
-            }
             parallel {
                 stage(“build_services”) {
                     agent any
