@@ -17,7 +17,7 @@ pipeline {
                             sudo chmod 777 /var/run/docker.sock
                             cd src
                             echo "HASH=${HASH}" >> .env
-                            sudo /usr/local/bin/docker-compose build identity-api basket-api catalog-api orderingapi paymentapi webhooks-api
+                            sudo /usr/local/bin/docker-compose build identityapi basketapi catalogapi orderingapi paymentapi webhooksapi
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             docker push gcr.io/eshop-infrastructure/identity.api:main.${HASH}
                             docker push gcr.io/eshop-infrastructure/basket.api:main.${HASH}
@@ -36,7 +36,7 @@ pipeline {
                         sudo chmod 777 /var/run/docker.sock
                         cd src
                         echo "HASH=${HASH}" >> .env
-                        sudo /usr/local/bin/docker-compose build webhooks-client
+                        sudo /usr/local/bin/docker-compose build webhooksclient
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                         docker push gcr.io/eshop-infrastructure/webhooks.client:main.${HASH}
                     '''
@@ -116,7 +116,7 @@ pipeline {
                            sudo chmod 777 /var/run/docker.sock
                            cd src
                            echo "HASH=${HASH}" >> .env
-                           sudo /usr/local/bin/docker-compose build ordering-backgroundtasks mobileshoppingagg webshoppingagg ordering-signalrhub
+                           sudo /usr/local/bin/docker-compose build orderingbackgroundtasks mobileshoppingagg webshoppingagg orderingsignalrhub
                            echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                            docker push gcr.io/eshop-infrastructure/ordering.backgroundtasks:main.${HASH}
                            docker push gcr.io/eshop-infrastructure/mobileshoppingagg:main.${HASH}
