@@ -5,6 +5,7 @@ pipeline {
                 returnStdout: true,
                 script: 'echo $RANDOM | md5sum | head -c 20;'
             )}"""
+     }
     stages {
         stage(“Build_Application”) {
             parallel {
