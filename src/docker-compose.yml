@@ -26,13 +26,13 @@ services:
       context: .
       dockerfile: DockerHub_Images/rabbitmq/Dockerfile
 
-  identity-api:
+  identityapi:
     image: gcr.io/eshop-infrastructure/identity.api:1
     build:
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
 
-  basket-api:
+  basketapi:
     image: gcr.io/eshop-infrastructure/basket.api:1
     build:
       context: .
@@ -42,7 +42,7 @@ services:
       - identity-api
       - rabbitmq
 
-  catalog-api:
+  catalogapi:
     image: gcr.io/eshop-infrastructure/catalog.api:1
     build:
       context: .
@@ -58,7 +58,7 @@ services:
     depends_on:
       - rabbitmq
 
-  ordering-backgroundtasks:
+  orderingbackgroundtasks:
     image: gcr.io/eshop-infrastructure/ordering.backgroundtasks:1
     build:
       context: .
@@ -74,7 +74,7 @@ services:
     depends_on:
       - rabbitmq
 
-  webhooks-api:
+  webhooksapi:
     image: gcr.io/eshop-infrastructure/webhooks.api:1
     build:
       context: .
@@ -112,7 +112,7 @@ services:
       - catalog-api
       - basket-api
 
-  ordering-signalrhub:
+  orderingsignalrhub:
     image: gcr.io/eshop-infrastructure/ordering.signalrhub:1
     build:
       context: .
@@ -151,7 +151,7 @@ services:
       - webshoppingagg
       - webshoppingapigw
 
-  webhooks-client:
+  webhooksclient:
     image: gcr.io/eshop-infrastructure/webhooks.client:1
     build:
       context: .

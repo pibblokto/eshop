@@ -29,7 +29,7 @@ services:
       - "15672:15672"
       - "5672:5672"
 
-  identity-api:
+  identityapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -49,7 +49,7 @@ services:
     ports:
       - "5105:80"
 
-  basket-api:
+  basketapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -70,7 +70,7 @@ services:
       - "5103:80"
       - "9103:81"
 
-  catalog-api:
+  catalogapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionString=Server=tcp:172.20.55.29,1433;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sqlserver;Password=12345678
@@ -117,7 +117,7 @@ services:
       - "5102:80"
       - "9102:81"
 
-  ordering-backgroundtasks:
+  orderingbackgroundtasks:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -151,7 +151,7 @@ services:
     ports:
       - "5108:80"
 
-  webhooks-api:
+  webhooksapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -216,7 +216,7 @@ services:
     ports:
       - "5121:80"
 
-  ordering-signalrhub:
+  orderingsignalrhub:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -290,7 +290,7 @@ services:
     ports:
       - "5100:80"
 
-  webhooks-client:
+  webhooksclient:
     environment:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - Token=6168DB8D-DC58-4094-AF24-483278923590      # Webhooks are registered with this token (any value is valid) but the client won't check it

@@ -29,8 +29,8 @@ services:
       - "15672:15672"
       - "5672:5672"
 
-  identity-api:
-    image: gcr.io/eshop-infrastructure/identity.api:1
+  identityapi:
+    image: gcr.io/eshop-infrastructure/identityapi:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -51,8 +51,8 @@ services:
       - "5105:80"
 
 
-  basket-api:
-    image: gcr.io/eshop-infrastructure/basket.api:1
+  basketapi:
+    image: gcr.io/eshop-infrastructure/basketapi:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -77,8 +77,8 @@ services:
       - identity-api
       - rabbitmq
 
-  catalog-api:
-    image:  gcr.io/eshop-infrastructure/catalog.api:1
+  catalogapi:
+    image:  gcr.io/eshop-infrastructure/catalogapi:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionString=Server=tcp:172.20.55.29,1433;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sqlserver;Password=12345678
@@ -128,8 +128,8 @@ services:
     depends_on:
       - rabbitmq
 
-  ordering-backgroundtasks:
-    image: gcr.io/eshop-infrastructure/ordering.backgroundtasks:1
+  orderingbackgroundtasks:
+    image: gcr.io/eshop-infrastructure/orderingbackgroundtasks:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -168,8 +168,8 @@ services:
     depends_on:
       - rabbitmq
 
-  webhooks-api:
-    image: gcr.io/eshop-infrastructure/webhooks.api:1
+  webhooksapi:
+    image: gcr.io/eshop-infrastructure/webhooksapi:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -244,8 +244,8 @@ services:
       - catalog-api
       - basket-api
 
-  ordering-signalrhub:
-    image: gcr.io/eshop-infrastructure/ordering.signalrhub:1
+  orderingsignalrhub:
+    image: gcr.io/eshop-infrastructure/orderingsignalrhub:1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
