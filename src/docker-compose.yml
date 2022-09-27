@@ -3,37 +3,37 @@ version: '3.4'
 services:
 
   seq:
-    image: gcr.io/eshop-infrastructure/seq${TAG}
+    image: gcr.io/eshop-infrastructure/seq:main.${HASH}
     build:
       context: .
       dockerfile: DockerHub_Images/seq/Dockerfile
 
   nosqldata:
-    image: gcr.io/eshop-infrastructure/mongo${TAG}
+    image: gcr.io/eshop-infrastructure/mongo:main.${HASH}
     build:
       context: .
       dockerfile: DockerHub_Images/nosqldata/Dockerfile
 
   basketdata:
-    image: gcr.io/eshop-infrastructure/redis${TAG}
+    image: gcr.io/eshop-infrastructure/redis:main.${HASH}
     build:
       context: .
       dockerfile: DockerHub_Images/basketdata/Dockerfile
 
   rabbitmq:
-    image: gcr.io/eshop-infrastructure/rabbitmq${TAG}
+    image: gcr.io/eshop-infrastructure/rabbitmq:main.${HASH}
     build:
       context: .
       dockerfile: DockerHub_Images/rabbitmq/Dockerfile
 
   identityapi:
-    image: gcr.io/eshop-infrastructure/identity.api${TAG}
+    image: gcr.io/eshop-infrastructure/identity.api:main.${HASH}
     build:
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
 
   basketapi:
-    image: gcr.io/eshop-infrastructure/basket.api${TAG}
+    image: gcr.io/eshop-infrastructure/basket.api:main.${HASH}
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
@@ -43,7 +43,7 @@ services:
       - rabbitmq
 
   catalogapi:
-    image: gcr.io/eshop-infrastructure/catalog.api${TAG}
+    image: gcr.io/eshop-infrastructure/catalog.api:main.${HASH}
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
@@ -51,7 +51,7 @@ services:
       - rabbitmq
 
   orderingapi:
-    image: gcr.io/eshop-infrastructure/orderingapi${TAG}
+    image: gcr.io/eshop-infrastructure/orderingapi:main.${HASH}
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.API/Dockerfile
@@ -59,7 +59,7 @@ services:
       - rabbitmq
 
   orderingbackgroundtasks:
-    image: gcr.io/eshop-infrastructure/ordering.backgroundtasks${TAG}
+    image: gcr.io/eshop-infrastructure/ordering.backgroundtasks:main.${HASH}
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.BackgroundTasks/Dockerfile
@@ -67,7 +67,7 @@ services:
       - rabbitmq
 
   paymentapi:
-    image: gcr.io/eshop-infrastructure/paymentapi${TAG}
+    image: gcr.io/eshop-infrastructure/paymentapi:main.${HASH}
     build:
       context: .
       dockerfile: Services/Payment/Payment.API/Dockerfile
@@ -75,19 +75,19 @@ services:
       - rabbitmq
 
   webhooksapi:
-    image: gcr.io/eshop-infrastructure/webhooks.api${TAG}
+    image: gcr.io/eshop-infrastructure/webhooks.api:main.${HASH}
     build:
       context: .
       dockerfile: Services/Webhooks/Webhooks.API/Dockerfile
 
   mobileshoppingapigw:
-    image: gcr.io/eshop-infrastructure/mobileshoppingapigw${TAG}
+    image: gcr.io/eshop-infrastructure/mobileshoppingapigw:main.${HASH}
     build:
       context: .
       dockerfile: DockerHub_Images/mobileshoppingapigw/Dockerfile
 
   mobileshoppingagg:
-    image: gcr.io/eshop-infrastructure/mobileshoppingagg${TAG}
+    image: gcr.io/eshop-infrastructure/mobileshoppingagg:main.${HASH}
     build:
       context: .
       dockerfile: ApiGateways/Mobile.Bff.Shopping/aggregator/Dockerfile
@@ -100,7 +100,7 @@ services:
       - basket-api
 
   webshoppingagg:
-    image: gcr.io/eshop-infrastructure/webshoppingagg${TAG}
+    image: gcr.io/eshop-infrastructure/webshoppingagg:main.${HASH}
     build:
       context: .
       dockerfile: ApiGateways/Web.Bff.Shopping/aggregator/Dockerfile
@@ -113,7 +113,7 @@ services:
       - basket-api
 
   orderingsignalrhub:
-    image: gcr.io/eshop-infrastructure/ordering.signalrhub${TAG}
+    image: gcr.io/eshop-infrastructure/ordering.signalrhub:main.${HASH}
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.SignalrHub/Dockerfile
@@ -126,13 +126,13 @@ services:
       - basket-api
 
   webstatus:
-    image: gcr.io/eshop-infrastructure/webstatus${TAG}
+    image: gcr.io/eshop-infrastructure/webstatus:main.${HASH}
     build:
       context: .
       dockerfile: Web/WebStatus/Dockerfile
 
   webspa:
-    image: gcr.io/eshop-infrastructure/webspa${TAG}
+    image: gcr.io/eshop-infrastructure/webspa:main.${HASH}
     build:
       context: .
       dockerfile: Web/WebSPA/Dockerfile
@@ -143,7 +143,7 @@ services:
       - webshoppingapigw
 
   webmvc:
-    image: gcr.io/eshop-infrastructure/webmvc${TAG}
+    image: gcr.io/eshop-infrastructure/webmvc:main.${HASH}
     build:
       context: .
       dockerfile: Web/WebMVC/Dockerfile
@@ -152,7 +152,7 @@ services:
       - webshoppingapigw
 
   webhooksclient:
-    image: gcr.io/eshop-infrastructure/webhooks.client${TAG}
+    image: gcr.io/eshop-infrastructure/webhooks.client:main.${HASH}
     build:
       context: .
       dockerfile: Web/WebhookClient/Dockerfile
@@ -160,7 +160,7 @@ services:
       - webhooks-api
 
   webshoppingapigw:
-    image: gcr.io/eshop-infrastructure/webshoppingapigw${TAG}
+    image: gcr.io/eshop-infrastructure/webshoppingapigw:main.${HASH}
     build:
       context: .
       dockerfile: DockerHub_Images/webshoppingapigw/Dockerfile

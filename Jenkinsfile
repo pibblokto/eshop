@@ -1,8 +1,10 @@
 pipeline {
     agent any
      environment {                 
-        TAG = ":main.${sh(echo $RANDOM | md5sum | head -c 20;)}"
-        }
+        HASH = """${sh(
+                returnStdout: true,
+                script: 'echo $RANDOM | md5sum | head -c 20;'
+            )}"""
     stages {
         stage(“Build_Application”) {
             parallel {
@@ -15,12 +17,12 @@ pipeline {
                             cd src
                             sudo /usr/local/bin/docker-compose build identity-api basket-api catalog-api orderingapi paymentapi webhooks-api
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                            docker push gcr.io/eshop-infrastructure/identity.api${TAG}
-                            docker push gcr.io/eshop-infrastructure/basket.api${TAG}
-                            docker push gcr.io/eshop-infrastructure/catalog.api${TAG}
-                            docker push gcr.io/eshop-infrastructure/ordering.api${TAG}
-                            docker push gcr.io/eshop-infrastructure/payment.api${TAG}
-                            docker push gcr.io/eshop-infrastructure/webhooks.api${TAG}
+                            docker push gcr.io/eshop-infrastructure/identity.api:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/basket.api:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/catalog.api:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/ordering.api:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/payment.api:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/webhooks.api:main.${HASH}
                         '''
                         }
                 }
@@ -33,7 +35,7 @@ pipeline {
                         cd src
                         sudo /usr/local/bin/docker-compose build webhooks-client
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                        docker push gcr.io/eshop-infrastructure/webhooks.client${TAG}
+                        docker push gcr.io/eshop-infrastructure/webhooks.client:main.${HASH}
                     '''
                     }
 
@@ -47,7 +49,7 @@ pipeline {
                         cd src
                         sudo /usr/local/bin/docker-compose build webmvc
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                        docker push gcr.io/eshop-infrastructure/webmvc${TAG}
+                        docker push gcr.io/eshop-infrastructure/webmvc:main.${HASH}
                     '''
                     }
 
@@ -61,7 +63,7 @@ pipeline {
                         cd src
                         sudo /usr/local/bin/docker-compose build webspa
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                        docker push gcr.io/eshop-infrastructure/webspa${TAG}
+                        docker push gcr.io/eshop-infrastructure/webspa:main.${HASH}
                     '''
                     }
 
@@ -75,7 +77,7 @@ pipeline {
                         cd src
                         sudo /usr/local/bin/docker-compose build webstatus
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                        docker push gcr.io/eshop-infrastructure/webstatus${TAG}
+                        docker push gcr.io/eshop-infrastructure/webstatus:main.${HASH}
                     '''
                     }
 
@@ -90,12 +92,12 @@ pipeline {
                             cd src
                             sudo /usr/local/bin/docker-compose build seq nosqldata basketdata rabbitmq mobileshoppingapigw webshoppingapigw
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                            docker push gcr.io/eshop-infrastructure/seq${TAG}
-                            docker push gcr.io/eshop-infrastructure/mongo${TAG}
-                            docker push gcr.io/eshop-infrastructure/redis${TAG}
-                            docker push gcr.io/eshop-infrastructure/rabbitmq${TAG}
-                            docker push gcr.io/eshop-infrastructure/mobileshoppingapigw${TAG}
-                            docker push gcr.io/eshop-infrastructure/webshoppingapigw${TAG}
+                            docker push gcr.io/eshop-infrastructure/seq:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/mongo:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/redis:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/rabbitmq:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/mobileshoppingapigw:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/webshoppingapigw:main.${HASH}
                         '''
                         }
                 }
@@ -108,10 +110,10 @@ pipeline {
                            cd src
                            sudo /usr/local/bin/docker-compose build ordering-backgroundtasks mobileshoppingagg webshoppingagg ordering-signalrhub
                            echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                           docker push gcr.io/eshop-infrastructure/ordering.backgroundtasks${TAG}
-                           docker push gcr.io/eshop-infrastructure/mobileshoppingagg${TAG}
-                           docker push gcr.io/eshop-infrastructure/webshoppingagg${TAG}
-                           docker push gcr.io/eshop-infrastructure/ordering.signalrhub${TAG}
+                           docker push gcr.io/eshop-infrastructure/ordering.backgroundtasks:main.${HASH}
+                           docker push gcr.io/eshop-infrastructure/mobileshoppingagg:main.${HASH}
+                           docker push gcr.io/eshop-infrastructure/webshoppingagg:main.${HASH}
+                           docker push gcr.io/eshop-infrastructure/ordering.signalrhub:main.${HASH}
                        '''
                        }
                 }
