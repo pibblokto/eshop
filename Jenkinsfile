@@ -13,11 +13,10 @@ pipeline {
                     agent any
                     steps {
                         sh '''
-                            echo $HASH
                             sudo chmod +x /usr/local/bin/docker-compose
                             sudo chmod 777 /var/run/docker.sock
                             cd src
-                            export HASH=${HASH}
+                            echo "HASH=${HASH}" >> .env
                             sudo /usr/local/bin/docker-compose build identity-api basket-api catalog-api orderingapi paymentapi webhooks-api
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             docker push gcr.io/eshop-infrastructure/identity.api:main.${HASH}
@@ -33,11 +32,10 @@ pipeline {
                     agent any
                     steps {
                         sh '''
-                        echo $HASH
                         sudo chmod +x /usr/local/bin/docker-compose
                         sudo chmod 777 /var/run/docker.sock
                         cd src
-                        export HASH=${HASH}
+                        echo "HASH=${HASH}" >> .env
                         sudo /usr/local/bin/docker-compose build webhooks-client
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                         docker push gcr.io/eshop-infrastructure/webhooks.client:main.${HASH}
@@ -49,11 +47,10 @@ pipeline {
                     agent any
                     steps {
                         sh '''
-                        echo $HASH
                         sudo chmod +x /usr/local/bin/docker-compose
                         sudo chmod 777 /var/run/docker.sock
                         cd src
-                        export HASH=${HASH}
+                        echo "HASH=${HASH}" >> .env
                         sudo /usr/local/bin/docker-compose build webmvc
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                         docker push gcr.io/eshop-infrastructure/webmvc:main.${HASH}
@@ -65,11 +62,10 @@ pipeline {
                     agent any
                     steps {
                         sh '''
-                        echo $HASH
                         sudo chmod +x /usr/local/bin/docker-compose
                         sudo chmod 777 /var/run/docker.sock
                         cd src
-                        export HASH=${HASH}
+                        echo "HASH=${HASH}" >> .env
                         sudo /usr/local/bin/docker-compose build webspa
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                         docker push gcr.io/eshop-infrastructure/webspa:main.${HASH}
@@ -81,11 +77,10 @@ pipeline {
                     agent any
                     steps {
                         sh '''
-                        echo $HASH
                         sudo chmod +x /usr/local/bin/docker-compose
                         sudo chmod 777 /var/run/docker.sock
                         cd src
-                        export HASH=${HASH}
+                        echo "HASH=${HASH}" >> .env
                         sudo /usr/local/bin/docker-compose build webstatus
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                         docker push gcr.io/eshop-infrastructure/webstatus:main.${HASH}
@@ -98,11 +93,10 @@ pipeline {
                     agent any
                     steps {
                         sh ''' 
-                            echo $HASH
                             sudo chmod +x /usr/local/bin/docker-compose
                             sudo chmod 777 /var/run/docker.sock
                             cd src
-                            export HASH=${HASH}
+                            echo "HASH=${HASH}" >> .env
                             sudo /usr/local/bin/docker-compose build seq nosqldata basketdata rabbitmq mobileshoppingapigw webshoppingapigw
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                             docker push gcr.io/eshop-infrastructure/seq:main.${HASH}
@@ -118,11 +112,10 @@ pipeline {
                     agent any
                     steps {
                            sh '''
-                           echo $HASH
                            sudo chmod +x /usr/local/bin/docker-compose
                            sudo chmod 777 /var/run/docker.sock
                            cd src
-                           export HASH=${HASH}
+                           echo "HASH=${HASH}" >> .env
                            sudo /usr/local/bin/docker-compose build ordering-backgroundtasks mobileshoppingagg webshoppingagg ordering-signalrhub
                            echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
                            docker push gcr.io/eshop-infrastructure/ordering.backgroundtasks:main.${HASH}

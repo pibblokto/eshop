@@ -54,7 +54,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - ConnectionString=basketdata
-      - identityUrl=http://identity-api
+      - identityUrl=http://identityapi
       - IdentityUrlExternal=http://ElasticLoadBalancer-35da6d71453ace91.elb.us-east-1.amazonaws.com:5105
       - EventBusConnection=rabbitmq
       - EventBusUserName=guest
@@ -97,7 +97,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - ConnectionString=Server=tcp:172.20.55.29,1433;Database=Microsoft.eShopOnContainers.Services.OrderingDb;User Id=sqlserver;Password=12345678
-      - identityUrl=http://identity-api
+      - identityUrl=http://identityapi
       - IdentityUrlExternal=http://ElasticLoadBalancer-35da6d71453ace91.elb.us-east-1.amazonaws.com:5105
       - EventBusConnection=rabbitmq
       - EventBusUserName=guest
@@ -159,7 +159,7 @@ services:
       - EventBusConnection=rabbitmq
       - EventBusUserName=guest
       - EventBusPassword=guest
-      - IdentityUrl=http://identity-api
+      - IdentityUrl=http://identityapi
       - IdentityUrlExternal=http://ElasticLoadBalancer-35da6d71453ace91.elb.us-east-1.amazonaws.com:5105
     ports:
       - "5113:80"
@@ -184,13 +184,13 @@ services:
       - urls__basket=http://basket-api
       - urls__catalog=http://catalog-api
       - urls__orders=http://orderingapi
-      - urls__identity=http://identity-api
+      - urls__identity=http://identityapi
       - urls__grpcBasket=http://basket-api:81
       - urls__grpcCatalog=http://catalog-api:81
       - urls__grpcOrdering=http://orderingapi:81
       - CatalogUrlHC=http://catalog-api/hc
       - OrderingUrlHC=http://orderingapi/hc
-      - IdentityUrlHC=http://identity-api/hc
+      - IdentityUrlHC=http://identityapi/hc
       - BasketUrlHC=http://basket-api/hc
       - PaymentUrlHC=http://paymentapi/hc
       - IdentityUrlExternal=http://ElasticLoadBalancer-35da6d71453ace91.elb.us-east-1.amazonaws.com:5105
@@ -203,13 +203,13 @@ services:
       - urls__basket=http://basket-api
       - urls__catalog=http://catalog-api
       - urls__orders=http://orderingapi
-      - urls__identity=http://identity-api
+      - urls__identity=http://identityapi
       - urls__grpcBasket=http://basket-api:81
       - urls__grpcCatalog=http://catalog-api:81
       - urls__grpcOrdering=http://orderingapi:81
       - CatalogUrlHC=http://catalog-api/hc
       - OrderingUrlHC=http://orderingapi/hc
-      - IdentityUrlHC=http://identity-api/hc
+      - IdentityUrlHC=http://identityapi/hc
       - BasketUrlHC=http://basket-api/hc
       - PaymentUrlHC=http://paymentapi/hc
       - IdentityUrlExternal=http://ElasticLoadBalancer-35da6d71453ace91.elb.us-east-1.amazonaws.com:5105
@@ -226,7 +226,7 @@ services:
       - AzureServiceBusEnabled=False
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
-      - identityUrl=http://identity-api
+      - identityUrl=http://identityapi
     ports:
       - "5112:80"
 
@@ -249,7 +249,7 @@ services:
       - HealthChecksUI__HealthChecks__6__Name=Catalog HTTP Check
       - HealthChecksUI__HealthChecks__6__Uri=http://catalog-api/hc
       - HealthChecksUI__HealthChecks__7__Name=Identity HTTP Check
-      - HealthChecksUI__HealthChecks__7__Uri=http://identity-api/hc
+      - HealthChecksUI__HealthChecks__7__Uri=http://identityapi/hc
       - HealthChecksUI__HealthChecks__8__Name=Payments HTTP Check
       - HealthChecksUI__HealthChecks__8__Uri=http://paymentapi/hc
       - HealthChecksUI__HealthChecks__9__Name=Ordering SignalRHub HTTP Check
@@ -267,7 +267,7 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - IdentityUrl=http://ElasticLoadBalancer-35da6d71453ace91.elb.us-east-1.amazonaws.com:5105
       - PurchaseUrl=http://ElasticLoadBalancer-35da6d71453ace91.elb.us-east-1.amazonaws.com:5202
-      - IdentityUrlHC=http://identity-api/hc
+      - IdentityUrlHC=http://identityapi/hc
       - UseCustomizationData=True
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
@@ -282,7 +282,7 @@ services:
       - PurchaseUrl=http://webshoppingapigw
       - IdentityUrl=http://ElasticLoadBalancer-35da6d71453ace91.elb.us-east-1.amazonaws.com:5105
       - SignalrHubUrl=http://ElasticLoadBalancer-35da6d71453ace91.elb.us-east-1.amazonaws.com:5202
-      - IdentityUrlHC=http://identity-api/hc
+      - IdentityUrlHC=http://identityapi/hc
       - UseCustomizationData=True
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
@@ -296,8 +296,8 @@ services:
       - Token=6168DB8D-DC58-4094-AF24-483278923590      # Webhooks are registered with this token (any value is valid) but the client won't check it
       - IdentityUrl=http://ElasticLoadBalancer-35da6d71453ace91.elb.us-east-1.amazonaws.com:5105
       - CallBackUrl=http://ElasticLoadBalancer-35da6d71453ace91.elb.us-east-1.amazonaws.com:5114
-      - WebhooksUrl=http://webhooks-api
-      - SelfUrl=http://webhooks-client/
+      - WebhooksUrl=http://webhooksapi
+      - SelfUrl=http://webhooksclient/
     ports:
       - "5114:80"
 volumes:
