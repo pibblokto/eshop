@@ -39,7 +39,7 @@ services:
       dockerfile: Services/Basket/Basket.API/Dockerfile
     depends_on:
       - basketdata
-      - identity-api
+      - identityapi
       - rabbitmq
 
   catalogapi:
@@ -93,11 +93,11 @@ services:
       dockerfile: ApiGateways/Mobile.Bff.Shopping/aggregator/Dockerfile
     depends_on:
       - nosqldata
-      - identity-api
+      - identityapi
       - rabbitmq
       - orderingapi
-      - catalog-api
-      - basket-api
+      - catalogapi
+      - basketapi
 
   webshoppingagg:
     image: gcr.io/eshop-infrastructure/webshoppingagg:main.${HASH}
@@ -106,11 +106,11 @@ services:
       dockerfile: ApiGateways/Web.Bff.Shopping/aggregator/Dockerfile
     depends_on:
       - nosqldata
-      - identity-api
+      - identityapi
       - rabbitmq
       - orderingapi
-      - catalog-api
-      - basket-api
+      - catalogapi
+      - basketapi
 
   orderingsignalrhub:
     image: gcr.io/eshop-infrastructure/ordering.signalrhub:main.${HASH}
@@ -119,11 +119,11 @@ services:
       dockerfile: Services/Ordering/Ordering.SignalrHub/Dockerfile
     depends_on:
       - nosqldata
-      - identity-api
+      - identityapi
       - rabbitmq
       - orderingapi
-      - catalog-api
-      - basket-api
+      - catalogapi
+      - basketapi
 
   webstatus:
     image: gcr.io/eshop-infrastructure/webstatus:main.${HASH}
