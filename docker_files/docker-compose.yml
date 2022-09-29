@@ -101,7 +101,7 @@ services:
       - rabbitmq
 
   orderingapi:
-    image: gcr.io/eshop-infrastructure/ordering.api
+    image: gcr.io/eshop-infrastructure/orderingapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
