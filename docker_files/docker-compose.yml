@@ -34,16 +34,16 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
-      - SpaClient=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5104
-      - XamarinCallback=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5105/xamarincallback
+      - SpaClient=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5104
+      - XamarinCallback=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5105/xamarincallback
       - ConnectionString=Server=tcp:172.20.55.29,1433;Database=Microsoft.eShopOnContainers.Service.IdentityDb;User Id=sqlserver;Password=12345678
-      - MvcClient=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5100
-      - BasketApiClient=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5103
-      - OrderingApiClient=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.comi:5102
-      - MobileShoppingAggClient=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5120
-      - WebShoppingAggClient=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5121
-      - WebhooksApiClient=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5113
-      - WebhooksWebClient=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5114
+      - MvcClient=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5100
+      - BasketApiClient=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5103
+      - OrderingApiClient=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.comi:5102
+      - MobileShoppingAggClient=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5120
+      - WebShoppingAggClient=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5121
+      - WebhooksApiClient=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5113
+      - WebhooksWebClient=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5114
       - UseCustomizationData=True
       - ApplicationInsights__InstrumentationKey=
       - OrchestratorType=DOCKER_SWARM
@@ -58,7 +58,7 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - ConnectionString=basketdata
       - identityUrl=http://identity-api
-      - IdentityUrlExternal=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5105
+      - IdentityUrlExternal=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5105
       - EventBusConnection=rabbitmq
       - EventBusUserName=guest
       - EventBusPassword=guest
@@ -82,7 +82,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionString=Server=tcp:172.20.55.29,1433;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sqlserver;Password=12345678
-      - PicBaseUrl=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5101/api/v1/catalog/items/[0]/pic/
+      - PicBaseUrl=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5101/api/v1/catalog/items/[0]/pic/
       - EventBusConnection=rabbitmq
       - EventBusUserName=guest
       - EventBusPassword=guest
@@ -107,7 +107,7 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - ConnectionString=Server=tcp:172.20.55.29,1433;Database=Microsoft.eShopOnContainers.Services.OrderingDb;User Id=sqlserver;Password=12345678
       - identityUrl=http://identity-api
-      - IdentityUrlExternal=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5105
+      - IdentityUrlExternal=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5105
       - EventBusConnection=rabbitmq
       - EventBusUserName=guest
       - EventBusPassword=guest
@@ -178,7 +178,7 @@ services:
       - EventBusUserName=guest
       - EventBusPassword=guest
       - IdentityUrl=http://identity-api
-      - IdentityUrlExternal=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5105
+      - IdentityUrlExternal=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5105
     ports:
       - "5113:80"
 
@@ -206,7 +206,7 @@ services:
       - IdentityUrlHC=http://identity-api/hc
       - BasketUrlHC=http://basket-api/hc
       - PaymentUrlHC=http://paymentapi/hc
-      - IdentityUrlExternal=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5105
+      - IdentityUrlExternal=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5105
     ports:
       - "5120:80"
     depends_on:
@@ -233,7 +233,7 @@ services:
       - IdentityUrlHC=http://identity-api/hc
       - BasketUrlHC=http://basket-api/hc
       - PaymentUrlHC=http://paymentapi/hc
-      - IdentityUrlExternal=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5105
+      - IdentityUrlExternal=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5105
     ports:
       - "5121:80"
     depends_on:
@@ -303,13 +303,13 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://0.0.0.0:80
-      - IdentityUrl=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5105
-      - PurchaseUrl=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5202
+      - IdentityUrl=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5105
+      - PurchaseUrl=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5202
       - IdentityUrlHC=http://identity-api/hc
       - UseCustomizationData=True
       - ApplicationInsights__InstrumentationKey=
       - OrchestratorType=DOCKER_SWARM
-      - SignalrHubUrl=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5202
+      - SignalrHubUrl=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5202
     ports:
       - "5104:80"
     depends_on:
@@ -322,8 +322,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - PurchaseUrl=http://webshoppingapigw
-      - IdentityUrl=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5105
-      - SignalrHubUrl=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5202
+      - IdentityUrl=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5105
+      - SignalrHubUrl=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5202
       - IdentityUrlHC=http://identity-api/hc
       - UseCustomizationData=True
       - ApplicationInsights__InstrumentationKey=
@@ -340,8 +340,8 @@ services:
     environment:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - Token=6168DB8D-DC58-4094-AF24-483278923590      # Webhooks are registered with this token (any value is valid) but the client won't check it
-      - IdentityUrl=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5105
-      - CallBackUrl=http://ElasticLoadBalancer-f3d140dcc4f9b69d.elb.us-east-1.amazonaws.com:5114
+      - IdentityUrl=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5105
+      - CallBackUrl=http://ElasticLoadBalancer-f653430442a2257b.elb.us-east-1.amazonaws.com:5114
       - WebhooksUrl=http://webhooks-api
       - SelfUrl=http://webhooks-client/
     ports:
