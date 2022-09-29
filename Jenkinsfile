@@ -7,6 +7,16 @@ pipeline {
             )}"""
      }
     stages {
+        stage(“save_tag”) {
+                    agent any
+                    steps {
+                        sh '''
+                            echo "main.${HASH}" > tag.txt
+                            sudo aws s3 cp ./tag.txt s3://${BucketName}
+                        '''
+                        }
+                }
+
         stage(“Build_Application”) {
             parallel {
                 stage(“build_services”) {
