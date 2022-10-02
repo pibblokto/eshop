@@ -152,7 +152,7 @@ services:
       - webshoppingapigw
 
   webhooksclient:
-    image: gcr.io/eshop-infrastructure/webhooks.client:main.${HASH}
+    image: gcr.io/eshop-infrastructure/webhooksclient:main.${HASH}
     build:
       context: .
       dockerfile: Web/WebhookClient/Dockerfile
