@@ -30,7 +30,7 @@ services:
       - "5672:5672"
 
   identity-api:
-    image: gcr.io/eshop-infrastructure/identity.api:REPLACE
+    image: gcr.io/eshop-infrastructure/identity-api:REPLACE
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -52,7 +52,7 @@ services:
 
 
   basket-api:
-    image: gcr.io/eshop-infrastructure/basket.api:REPLACE
+    image: gcr.io/eshop-infrastructure/basket-api:REPLACE
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -78,7 +78,7 @@ services:
       - rabbitmq
 
   catalog-api:
-    image:  gcr.io/eshop-infrastructure/catalog.api:REPLACE
+    image:  gcr.io/eshop-infrastructure/catalog-api:REPLACE
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionString=Server=tcp:172.20.55.7,1433;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sqlserver;Password=12345678
@@ -101,7 +101,7 @@ services:
       - rabbitmq
 
   ordering-api:
-    image: gcr.io/eshop-infrastructure/ordering.api:REPLACE
+    image: gcr.io/eshop-infrastructure/ordering-api:REPLACE
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -151,7 +151,7 @@ services:
       - rabbitmq
 
   payment-api:
-    image: gcr.io/eshop-infrastructure/payment.api:REPLACE
+    image: gcr.io/eshop-infrastructure/payment-api:REPLACE
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -169,7 +169,7 @@ services:
       - rabbitmq
 
   webhooks-api:
-    image: gcr.io/eshop-infrastructure/webhooks.api:REPLACE
+    image: gcr.io/eshop-infrastructure/webhooks-api:REPLACE
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
