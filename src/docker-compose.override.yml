@@ -136,7 +136,7 @@ services:
     ports:
       - "5111:80"
 
-  paymentapi:
+  payment-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -146,7 +146,7 @@ services:
       - AzureServiceBusEnabled=False
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
-      - Serilog__MinimumLevel__Override__paymentapi.IntegrationEvents.EventHandling=Verbose
+      - Serilog__MinimumLevel__Override__payment-api.IntegrationEvents.EventHandling=Verbose
       - Serilog__MinimumLevel__Override__Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ=Verbose
     ports:
       - "5108:80"
@@ -192,7 +192,7 @@ services:
       - OrderingUrlHC=http://ordering-api/hc
       - IdentityUrlHC=http://identity-api/hc
       - BasketUrlHC=http://basket-api/hc
-      - PaymentUrlHC=http://paymentapi/hc
+      - PaymentUrlHC=http://payment-api/hc
       - IdentityUrlExternal=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5105
     ports:
       - "5120:80"
@@ -211,7 +211,7 @@ services:
       - OrderingUrlHC=http://ordering-api/hc
       - IdentityUrlHC=http://identity-api/hc
       - BasketUrlHC=http://basket-api/hc
-      - PaymentUrlHC=http://paymentapi/hc
+      - PaymentUrlHC=http://payment-api/hc
       - IdentityUrlExternal=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5105
     ports:
       - "5121:80"
@@ -251,7 +251,7 @@ services:
       - HealthChecksUI__HealthChecks__7__Name=Identity HTTP Check
       - HealthChecksUI__HealthChecks__7__Uri=http://identity-api/hc
       - HealthChecksUI__HealthChecks__8__Name=Payments HTTP Check
-      - HealthChecksUI__HealthChecks__8__Uri=http://paymentapi/hc
+      - HealthChecksUI__HealthChecks__8__Uri=http://payment-api/hc
       - HealthChecksUI__HealthChecks__9__Name=Ordering SignalRHub HTTP Check
       - HealthChecksUI__HealthChecks__9__Uri=http://ordering-signalrhub/hc
       - HealthChecksUI__HealthChecks__10__Name=Ordering HTTP Background Check
