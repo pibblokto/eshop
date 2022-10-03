@@ -29,7 +29,7 @@ services:
       - "15672:15672"
       - "5672:5672"
 
-  identityapi:
+  identity-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -37,11 +37,11 @@ services:
       - XamarinCallback=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5104:5105/xamarincallback
       - ConnectionString=Server=tcp:172.20.55.5,1433;Database=Microsoft.eShopOnContainers.Service.IdentityDb;User Id=sqlserver;Password=12345678
       - MvcClient=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5100
-      - BasketApiClient=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5103
-      - OrderingApiClient=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5102
+      - basket-apiClient=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5103
+      - ordering-apiClient=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5102
       - MobileShoppingAggClient=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5120
       - WebShoppingAggClient=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5121
-      - WebhooksApiClient=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5113
+      - webhooks-apiClient=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5113
       - WebhooksWebClient=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5114
       - UseCustomizationData=True
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
@@ -49,12 +49,12 @@ services:
     ports:
       - "5105:80"
 
-  basketapi:
+  basket-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - ConnectionString=basketdata
-      - identityUrl=http://identityapi
+      - identityUrl=http://identity-api
       - IdentityUrlExternal=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5105
       - EventBusConnection=rabbitmq
       - EventBusUserName=guest
@@ -70,7 +70,7 @@ services:
       - "5103:80"
       - "9103:81"
 
-  catalogapi:
+  catalog-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionString=Server=tcp:172.20.55.5,1433;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sqlserver;Password=12345678
@@ -92,12 +92,12 @@ services:
       - "5101:80"
       - "9101:81"
 
-  orderingapi:
+  ordering-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - ConnectionString=Server=tcp:172.20.55.5,1433;Database=Microsoft.eShopOnContainers.Services.OrderingDb;User Id=sqlserver;Password=12345678
-      - identityUrl=http://identityapi
+      - identityUrl=http://identity-api
       - IdentityUrlExternal=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5105
       - EventBusConnection=rabbitmq
       - EventBusUserName=guest
@@ -109,15 +109,15 @@ services:
       - OrchestratorType=${ORCHESTRATOR_TYPE}
       - UseLoadTest=${USE_LOADTEST:-False}
       - Serilog__MinimumLevel__Override__Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ=Verbose
-      - Serilog__MinimumLevel__Override__orderingapi=Verbose
-      - PATH_BASE=/orderingapi
+      - Serilog__MinimumLevel__Override__ordering-api=Verbose
+      - PATH_BASE=/ordering-api
       - GRPC_PORT=81
       - PORT=80
     ports:
       - "5102:80"
       - "9102:81"
 
-  orderingbackgroundtasks:
+  ordering-backgroundtasks:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -151,7 +151,7 @@ services:
     ports:
       - "5108:80"
 
-  webhooksapi:
+  webhooks-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -159,7 +159,7 @@ services:
       - EventBusConnection=rabbitmq
       - EventBusUserName=guest
       - EventBusPassword=guest
-      - IdentityUrl=http://identityapi
+      - IdentityUrl=http://identity-api
       - IdentityUrlExternal=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5105
     ports:
       - "5113:80"
@@ -183,14 +183,14 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - urls__basket=http://basket-api
       - urls__catalog=http://catalog-api
-      - urls__orders=http://orderingapi
-      - urls__identity=http://identityapi
+      - urls__orders=http://ordering-api
+      - urls__identity=http://identity-api
       - urls__grpcBasket=http://basket-api:81
       - urls__grpcCatalog=http://catalog-api:81
-      - urls__grpcOrdering=http://orderingapi:81
+      - urls__grpcOrdering=http://ordering-api:81
       - CatalogUrlHC=http://catalog-api/hc
-      - OrderingUrlHC=http://orderingapi/hc
-      - IdentityUrlHC=http://identityapi/hc
+      - OrderingUrlHC=http://ordering-api/hc
+      - IdentityUrlHC=http://identity-api/hc
       - BasketUrlHC=http://basket-api/hc
       - PaymentUrlHC=http://paymentapi/hc
       - IdentityUrlExternal=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5105
@@ -202,21 +202,21 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - urls__basket=http://basket-api
       - urls__catalog=http://catalog-api
-      - urls__orders=http://orderingapi
-      - urls__identity=http://identityapi
+      - urls__orders=http://ordering-api
+      - urls__identity=http://identity-api
       - urls__grpcBasket=http://basket-api:81
       - urls__grpcCatalog=http://catalog-api:81
-      - urls__grpcOrdering=http://orderingapi:81
+      - urls__grpcOrdering=http://ordering-api:81
       - CatalogUrlHC=http://catalog-api/hc
-      - OrderingUrlHC=http://orderingapi/hc
-      - IdentityUrlHC=http://identityapi/hc
+      - OrderingUrlHC=http://ordering-api/hc
+      - IdentityUrlHC=http://identity-api/hc
       - BasketUrlHC=http://basket-api/hc
       - PaymentUrlHC=http://paymentapi/hc
       - IdentityUrlExternal=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5105
     ports:
       - "5121:80"
 
-  orderingsignalrhub:
+  ordering-signalrhub:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
@@ -226,7 +226,7 @@ services:
       - AzureServiceBusEnabled=False
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
-      - identityUrl=http://identityapi
+      - identityUrl=http://identity-api
     ports:
       - "5112:80"
 
@@ -243,13 +243,13 @@ services:
       - HealthChecksUI__HealthChecks__3__Name=Mobile Shopping Aggregator HTTP Check
       - HealthChecksUI__HealthChecks__3__Uri=http://mobileshoppingagg/hc
       - HealthChecksUI__HealthChecks__4__Name=Ordering HTTP Check
-      - HealthChecksUI__HealthChecks__4__Uri=http://orderingapi/hc
+      - HealthChecksUI__HealthChecks__4__Uri=http://ordering-api/hc
       - HealthChecksUI__HealthChecks__5__Name=Basket HTTP Check
       - HealthChecksUI__HealthChecks__5__Uri=http://basket-api/hc
       - HealthChecksUI__HealthChecks__6__Name=Catalog HTTP Check
       - HealthChecksUI__HealthChecks__6__Uri=http://catalog-api/hc
       - HealthChecksUI__HealthChecks__7__Name=Identity HTTP Check
-      - HealthChecksUI__HealthChecks__7__Uri=http://identityapi/hc
+      - HealthChecksUI__HealthChecks__7__Uri=http://identity-api/hc
       - HealthChecksUI__HealthChecks__8__Name=Payments HTTP Check
       - HealthChecksUI__HealthChecks__8__Uri=http://paymentapi/hc
       - HealthChecksUI__HealthChecks__9__Name=Ordering SignalRHub HTTP Check
@@ -267,7 +267,7 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - IdentityUrl=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5105
       - PurchaseUrl=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5202
-      - IdentityUrlHC=http://identityapi/hc
+      - IdentityUrlHC=http://identity-api/hc
       - UseCustomizationData=True
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
@@ -282,7 +282,7 @@ services:
       - PurchaseUrl=http://webshoppingapigw
       - IdentityUrl=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5105
       - SignalrHubUrl=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5202
-      - IdentityUrlHC=http://identityapi/hc
+      - IdentityUrlHC=http://identity-api/hc
       - UseCustomizationData=True
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
@@ -290,14 +290,14 @@ services:
     ports:
       - "5100:80"
 
-  webhooksclient:
+  webhooks-client:
     environment:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - Token=6168DB8D-DC58-4094-AF24-483278923590      # Webhooks are registered with this token (any value is valid) but the client won't check it
       - IdentityUrl=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5105
       - CallBackUrl=http://ElasticLoadBalancer-7bbb153783f36d80.elb.us-east-1.amazonaws.com:5114
-      - WebhooksUrl=http://webhooksapi
-      - SelfUrl=http://webhooksclient/
+      - WebhooksUrl=http://webhooks-api
+      - SelfUrl=http://webhooks-client/
     ports:
       - "5114:80"
 volumes:
