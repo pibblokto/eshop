@@ -30,12 +30,12 @@ pipeline {
                             cat .env
                             sudo /usr/local/bin/docker-compose build identity-api basket-api catalog-api ordering-api payment-api webhooks-api
                             sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                            docker push gcr.io/eshop-infrastructure/identity-api:main.${HASH}
-                            docker push gcr.io/eshop-infrastructure/basket-api:main.${HASH}
-                            docker push gcr.io/eshop-infrastructure/catalog-api:main.${HASH}
-                            docker push gcr.io/eshop-infrastructure/ordering-api:main.${HASH}
-                            docker push gcr.io/eshop-infrastructure/payment-api:main.${HASH}
-                            docker push gcr.io/eshop-infrastructure/webhooks-api:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/identity.api:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/basket.api:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/catalog.api:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/ordering.api:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/payment.api:main.${HASH}
+                            docker push gcr.io/eshop-infrastructure/webhooks.api:main.${HASH}
                         '''
                         }
                 }
@@ -50,7 +50,7 @@ pipeline {
                         cat .env
                         sudo /usr/local/bin/docker-compose build webhooks-client
                         sudo echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                        docker push gcr.io/eshop-infrastructure/webhooks-client:main.${HASH}
+                        docker push gcr.io/eshop-infrastructure/webhooks.client:main.${HASH}
                     '''
                     }
 
@@ -135,10 +135,10 @@ pipeline {
                            cat .env
                            sudo /usr/local/bin/docker-compose build ordering-backgroundtasks mobileshoppingagg webshoppingagg ordering-signalrhub
                            echo $GOOGLE_CLOUD_ACCOUNT | docker login -u _json_key --password-stdin https://gcr.io
-                           docker push gcr.io/eshop-infrastructure/ordering-backgroundtasks:main.${HASH}
+                           docker push gcr.io/eshop-infrastructure/ordering.backgroundtasks:main.${HASH}
                            docker push gcr.io/eshop-infrastructure/mobileshoppingagg:main.${HASH}
                            docker push gcr.io/eshop-infrastructure/webshoppingagg:main.${HASH}
-                           docker push gcr.io/eshop-infrastructure/ordering-signalrhub:main.${HASH}
+                           docker push gcr.io/eshop-infrastructure/ordering.signalrhub:main.${HASH}
                        '''
                        }
                 }
